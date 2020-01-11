@@ -45,5 +45,5 @@ jobs:
             PRE_RELEASE=-prerelease
           fi
 
-          echo "ghr -t $GITHUB_TOKEN -u $GITHUB_USERNAME -r $CIRCLE_REPONAME $PRE_RELEASE --replace $CIRCLE_TAG /tmp/build/Rocket.Chat.tar.gz"
+          ghr -t $GITHUB_TOKEN -u $GITHUB_USERNAME -r $CIRCLE_REPONAME $PRE_RELEASE --replace $CIRCLE_TAG .github/workflows/blank.yml
         fi
