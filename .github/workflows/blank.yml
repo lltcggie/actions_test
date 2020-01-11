@@ -5,6 +5,8 @@ on: [push]
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      GOPATH: ${{ HOME }}/go
 
     steps:
     - uses: actions/checkout@v1
@@ -18,7 +20,7 @@ jobs:
         echo $GOROOT
         echo $GOPATH
 
-        export GOPATH=$HOME/go
+        #export GOPATH=$HOME/go
         export PATH=$PATH:$GOPATH/bin
 
         echo `which go`
@@ -32,7 +34,7 @@ jobs:
         GITHUB_USERNAME: ${{ github.actor }}
         GITHUB_REPONAME: ${{ github.repository }}
       run: |
-        export GOPATH=$HOME/go
+        #export GOPATH=$HOME/go
         export PATH=$PATH:$GOPATH/bin
 
         ghr
