@@ -8,63 +8,24 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    # - uses: actions/setup-go@v1
-    #   with:
-    #     go-version: '1.11.4'
 
-    # - name: Install ghr
-    #   run: |
-    #     export GOPATH=$HOME/go
-    #     export PATH=$PATH:$GOPATH/bin
-
-    #     echo `which go`
-    #     mkdir -p "$GOPATH"
-
-    #     go get github.com/tcnksm/ghr
-
-    # - name: Publish assets
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #     GITHUB_USERNAME: ${{ github.actor }}
-    #     GITHUB_REPONAME: ${{ github.repository }}
-    #   run: |
-    #     export GOPATH=$HOME/go
-    #     export PATH=$PATH:$GOPATH/bin
-
-    #     export CIRCLE_REPONAME="${GITHUB_REPONAME#*/}"
-
-    #     export CIRCLE_TAG="${GITHUB_REF#*tags/}"
-
-    #     export CIRCLE_TAG=${CIRCLE_TAG:=}
-    #     export CIRCLE_SHA1=$GITHUB_SHA
-    #     export CIRCLE_BUILD_NUM=$GITHUB_SHA
-
-    #     if [ $CIRCLE_TAG ] && [[ ! $CIRCLE_TAG =~ ^refs/.*$ ]]; then
-    #       PRE_RELEASE=
-    #       if [[ "$CIRCLE_TAG" =~ ^[0-9]+\.[0-9]+\.[0-9]+-rc\.[0-9]+-custom$ ]]; then
-    #         PRE_RELEASE=-prerelease
-    #       fi
-
-    #       ghr -t $GITHUB_TOKEN -u $GITHUB_USERNAME -r $CIRCLE_REPONAME $PRE_RELEASE --replace $CIRCLE_TAG .github/workflows/blank.yml
-    #     fi
-
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1.0.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
-          draft: false
-          prerelease: false
-      - name: Upload Release Asset
-        id: upload-release-asset 
-        uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: ./test.tar.gz
-          asset_name: test.tar.gz
-          asset_content_type: application/gzip
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1.0.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: ${{ github.ref }}
+        draft: false
+        prerelease: false
+    - name: Upload Release Asset
+      id: upload-release-asset 
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        asset_path: ./test.tar.gz
+        asset_name: test.tar.gz
+        asset_content_type: application/gzip
