@@ -36,7 +36,7 @@ jobs:
         echo $CIRCLE_TAG
 
     - name: after
-      if: {{ $CIRCLE_TAG != '' }}
+      if: env.CIRCLE_TAG != ''
       run: |
         echo test3
         echo $CIRCLE_TAG
