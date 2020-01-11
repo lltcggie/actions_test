@@ -29,6 +29,10 @@ jobs:
         echo test2
         echo $CIRCLE_TAG
 
+    - name: insert
+      run: |
+        echo $env
+
     - name: after
       if: env.CIRCLE_TAG != ''
       run: |
