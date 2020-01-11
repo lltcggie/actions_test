@@ -18,9 +18,9 @@ jobs:
         echo $GOROOT
         echo $GOPATH
 
-        #export PATH=$PATH:$HOME/go/bin:$HOME/workspace/bin
         export GOPATH=$HOME/go
-        
+        export PATH=$PATH:$GOPATH/bin
+
         echo `which go`
         mkdir -p "$GOPATH"
 
@@ -32,7 +32,7 @@ jobs:
         GITHUB_USERNAME: ${{ github.actor }}
         GITHUB_REPONAME: ${{ github.repository }}
       run: |
-        #export PATH=$PATH:$HOME/go/bin:$HOME/workspace/bin
         export GOPATH=$HOME/go
+        export PATH=$PATH:$GOPATH/bin
 
         ghr
