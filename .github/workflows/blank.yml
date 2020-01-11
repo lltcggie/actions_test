@@ -19,10 +19,6 @@ jobs:
         export CIRCLE_SHA1=$GITHUB_SHA
         export CIRCLE_BUILD_NUM=$GITHUB_SHA
 
-        source .circleci/setartname.sh
-        source .circleci/setdeploydir.sh
-        bash .circleci/namefiles.sh
-
         if [[ $CIRCLE_TAG =~ ^refs/.*$ ]]; then
           export CIRCLE_TAG=
         fi
