@@ -28,7 +28,22 @@ jobs:
         GITHUB_USERNAME: ${{ github.actor }}
         GITHUB_REPONAME: ${{ github.repository }}
       run: |
-        #export GOPATH=$HOME/go
-        #export PATH=$PATH:$GOPATH/bin
+        export GOPATH=$HOME/go
+        export PATH=$PATH:$GOPATH/bin
 
-        ghr
+        export CIRCLE_REPONAME="${GITHUB_REPONAME#*/}"
+
+        export CIRCLE_TAG="${GITHUB_REF#*tags/}"
+
+        export CIRCLE_TAG=${CIRCLE_TAG:=}
+        export CIRCLE_SHA1=$GITHUB_SHA
+        export CIRCLE_BUILD_NUM=$GITHUB_SHA
+
+        if [ $CIRCLE_TAG ] && [[ ! $CIRCLE_TAG =~ ^refs/.*$ ]]; then
+          PRE_RELEASE=
+          if [[ "$CIRCLE_TAG" =~ ^[0-9]+\.[0-9]+\.[0-9]+-rc\.[0-9]+-custom$ ]]; then
+            PRE_RELEASE=-prerelease
+          fi
+
+          echo "ghr -t $GITHUB_TOKEN -u $GITHUB_USERNAME -r $CIRCLE_REPONAME $PRE_RELEASE --replace $CIRCLE_TAG /tmp/build/Rocket.Chat.tar.gz"
+        fi
