@@ -1,0 +1,28 @@
+name: CI
+
+on: [push]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-go@v1
+      with:
+        go-version: '1.11.4'
+
+    - name: Install ghr
+      run: |
+        echo $PATH
+        echo $GOROOT
+        echo $GOPATH
+
+        export PATH=$PATH:$HOME/go/bin:$HOME/workspace/bin
+        #export GOROOT=$HOME/go
+        export GOPATH=$HOME/go
+        
+        echo `which go`
+        mkdir -p "$GOPATH"
+
+        go get github.com/tcnksm/ghr
