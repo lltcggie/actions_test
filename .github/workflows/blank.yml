@@ -6,7 +6,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      GOPATH: ${{ HOME }}/go
+      GOPATH: '${{ HOME }}/go'
 
     steps:
     - uses: actions/checkout@v1
