@@ -29,12 +29,14 @@ jobs:
         echo test2
         echo $CIRCLE_TAG
 
+        echo "::set-env name=CIRCLE_TAG::$CIRCLE_TAG"
+
     - name: insert
       run: |
-        echo $env
+        echo $CIRCLE_TAG
 
     - name: after
-      if: env.CIRCLE_TAG != ''
+      if: $CIRCLE_TAG != ''
       run: |
         echo test3
         echo $CIRCLE_TAG
