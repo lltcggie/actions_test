@@ -30,3 +30,4 @@ jobs:
         asset_path: ./test.tar.gz
         asset_name: test.tar.gz
         asset_content_type: application/gzip
+
