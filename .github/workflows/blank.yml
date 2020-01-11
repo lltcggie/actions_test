@@ -18,11 +18,21 @@ jobs:
         echo $GOROOT
         echo $GOPATH
 
-        export PATH=$PATH:$HOME/go/bin:$HOME/workspace/bin
-        #export GOROOT=$HOME/go
+        #export PATH=$PATH:$HOME/go/bin:$HOME/workspace/bin
         export GOPATH=$HOME/go
         
         echo `which go`
         mkdir -p "$GOPATH"
 
         go get github.com/tcnksm/ghr
+
+    - name: Publish assets
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_USERNAME: ${{ github.actor }}
+        GITHUB_REPONAME: ${{ github.repository }}
+      run: |
+        #export PATH=$PATH:$HOME/go/bin:$HOME/workspace/bin
+        export GOPATH=$HOME/go
+
+        ghr
